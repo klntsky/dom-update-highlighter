@@ -16,5 +16,11 @@
     },
     "action": {
         "default_title": "Highlight DOM changes on this webpage as they happen"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "dom-update-highlighter@klntsky.dev",
+            "strict_min_version": "42.0"
+        }
     }
 }

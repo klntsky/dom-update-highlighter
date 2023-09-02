@@ -1,6 +1,6 @@
 # DOM update highlighter
 
-This webextension highlights [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) updates as they happen on a webpage.
+This WebExtension highlights [DOM](https://en.wikipedia.org/wiki/Document_Object_Model) updates as they happen on a webpage.
 
 It can be used by frontend developers to observe inefficiencies in working with DOM, such as excessive content updates or tree rebuilds.
 
@@ -11,3 +11,7 @@ Here's a cheat sheet:
 - Attribute updates are highlighted with yellow (but `style` attribute changes are ignored)
 
 This extension is powered by [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) API.
+
+## Video preview
+
+[![Watch the video](https://img.youtube.com/vi/x03lGEKPElk/0.jpg)](https://youtu.be/x03lGEKPElk)
