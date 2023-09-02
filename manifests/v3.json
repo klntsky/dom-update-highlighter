@@ -1,0 +1,20 @@
+{
+    "name": "DOM Update Highlighter",
+    "description": "Highlight DOM elements that are being updated",
+    "version": "1.0",
+    "permissions": [
+        "activeTab",
+        "scripting",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
+        "default_title": "Highlight DOM changes on this webpage as they happen"
+    },
+    "manifest_version": 3,
+    "icons": {
+        "128": "icon128.png"
+    }
+}
