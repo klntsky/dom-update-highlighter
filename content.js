@@ -74,10 +74,20 @@ function injectedMain () {
                 highlight(mutation.target, '0, 255, 0', false, 10);
             } else if (
                 mutation.type === 'attributes' &&
-                    mutation.attributeName !== 'data-_duh' &&
-                    mutation.attributeName !== 'style'
+                    mutation.attributeName !== 'data-_duh'
             ) {
-                highlight(mutation.target, '255, 255, 0', false, 25);
+                if (mutation.attributeName !== 'style' || (
+                    // if `attributeName` is `style`, and we are already highlighting
+                    // the element, the update will be skipped.
+                    !mutation.target.dataset._duh &&
+                    // we want to make sure `outline` property was not present
+                    // this breaks for elements that already have outline manually set.
+                    // We can just ignore this case for now.
+                    (mutation.oldValue || "").indexOf('outline') === -1 &&
+                    (mutation?.target?.style?.cssText || "").indexOf('outline') === -1
+                )) {
+                    highlight(mutation.target, '255, 255, 0', false, 25);
+                }
             } else if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(node => {
                     highlight(node, '255, 0, 0', true, 10);
@@ -90,7 +100,8 @@ function injectedMain () {
         characterData: true,
         attributes: true,
         childList: true,
-        subtree: true
+        subtree: true,
+        attributeOldValue: true
     });
 
     window.__DOM_UPDATE_HIGHLIGHTER = observer;
