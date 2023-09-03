@@ -1,7 +1,7 @@
 {
     "name": "DOM Update Highlighter",
     "description": "Highlight DOM elements that are being updated",
-    "version": "1.0",
+    "version": "1.0.1",
     "permissions": [
         "activeTab",
         "scripting"

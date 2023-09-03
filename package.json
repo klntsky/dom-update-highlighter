@@ -1,6 +1,6 @@
 {
     "name": "dom-update-highlighter",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "This webextension highlights DOM updates as they happen on a webpage.",
     "scripts": {
         "build-firefox": "cp manifests/firefox.json manifest.json",
