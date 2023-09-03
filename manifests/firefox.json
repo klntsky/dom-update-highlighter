@@ -12,7 +12,9 @@
     },
     "manifest_version": 3,
     "icons": {
-        "128": "icon128.png"
+        "128": "icon128.png",
+        "64": "icon64.png",
+        "32": "icon32.png"
     },
     "action": {
         "default_title": "Highlight DOM changes on this webpage as they happen"
