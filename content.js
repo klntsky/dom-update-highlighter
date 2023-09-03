@@ -8,7 +8,7 @@ function injectedMain () {
     const highlighted = new Map();
     let counter = 1;
 
-    const highlight = (node, color, noFilterChange, stepN) => {
+    const highlight = (node, color, changeStyleFilter, stepN) => {
         if (node === null) return;;
 
         // text node
@@ -46,18 +46,15 @@ function injectedMain () {
             if (cancelledByNewerHighlight) return;
 
             if (i <= 0) {
-                if (!highlighted.has(node.dataset._duh)) {
-
-                }
                 const [ oldFilter, oldOutline, cancel ] = highlighted.get(node.dataset._duh);
-                if (!noFilterChange) {
+                if (changeStyleFilter) {
                     node.style.filter = oldFilter;
                 }
                 node.style.outline = oldOutline;
                 highlighted.delete(node.dataset._duh);
                 delete node.dataset._duh;
             } else {
-                if (!noFilterChange) {
+                if (changeStyleFilter) {
                     node.style.filter = 'invert(' + (i/4) + '%)';
                 }
                 node.style.outline = '2px solid rgba(' + color + ' , ' + (
