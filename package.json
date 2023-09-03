@@ -5,10 +5,10 @@
     "scripts": {
         "build-firefox": "cp manifests/firefox.json manifest.json",
         "build-chrome": "cp manifests/chrome.json manifest.json",
-        "pack-firefox": "zip -r ./dom-update-highlighter.xpi background.js content.js manifest.json icon128.png",
-        "pack-chrome": "zip -r ./dom-update-highlighter.zip background.js content.js manifest.json icon128.png",
+        "pack-firefox": "zip -r ./dom-update-highlighter-firefox.xpi background.js content.js manifest.json icon128.png",
+        "pack-chrome": "zip -r ./dom-update-highlighter-chrome.zip background.js content.js manifest.json icon128.png",
         "build": "npm run clean && npm run build-firefox && npm run pack-firefox && npm run build-chrome && npm run pack-chrome",
-        "clean": "rm ./dom-update-highlighter.xpi ./dom-update-highlighter.zip manifest.json"
+        "clean": "rm -f ./dom-update-highlighter-firefox.xpi ./dom-update-highlighter-chrome.zip manifest.json"
     },
     "author": "klntsky",
     "license": "ISC"
