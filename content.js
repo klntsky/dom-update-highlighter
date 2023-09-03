@@ -6,43 +6,60 @@ function injectedMain () {
     }
 
     const highlighted = new Map();
+    let counter = 1;
 
-    const highlight = (node, color, bg, stepN) => {
-        if (!node.style) {
+    const highlight = (node, color, noFilterChange, stepN) => {
+        if (node === null) return;;
+
+        // text node
+        if (!node.style || !node.dataset) {
             node = node.parentNode;
         }
 
-        let cancelled = false;
+        if (!node.dataset) {
+            return;
+        }
 
-        const cancel = () => cancelled = true;
+        let cancelledByNewerHighlight = false;
 
-        let oldFilter, oldOutline;
+        const cancelAnimation = () => {
+            cancelledByNewerHighlight = true;
+        };
 
-        if (!highlighted.has(node)) {
-            highlighted.set(node, [ node.style.filter, node.style.outline, cancel ]);
-        } else {
-            let canceller;
-            [ oldFilter, oldOutline, canceller ] = highlighted.get(node);
+        let ix;
+        if (!node.dataset._duh) {
+            ix = counter++;
+            node.dataset._duh = ix;
+        }
+
+        if (highlighted.has(node.dataset._duh)) {
+            const [ oldFilter, oldOutline, canceller ] = highlighted.get(node.dataset._duh);
             canceller();
+            highlighted.set(node.dataset._duh, [ oldFilter, oldOutline, cancelAnimation ]);
+        } else {
+            highlighted.set(node.dataset._duh, [node.style.filter, node.style.outline, cancelAnimation ]);
         }
 
         let i = 100;
 
         const step = () => {
-            if (cancelled) return;
-            if (!highlighted.has(node)) {
-                node.style.filter = oldFilter;
-                node.style.outline = oldOutline;
-                return;
-            }
+            if (cancelledByNewerHighlight) return;
 
             if (i <= 0) {
-                const [ oldFilter, oldOutline, cancel ] = highlighted.get(node);
-                !bg || (node.style.filter = oldFilter);
+                if (!highlighted.has(node.dataset._duh)) {
+
+                }
+                const [ oldFilter, oldOutline, cancel ] = highlighted.get(node.dataset._duh);
+                if (!noFilterChange) {
+                    node.style.filter = oldFilter;
+                }
                 node.style.outline = oldOutline;
-                highlighted.delete(node);
+                highlighted.delete(node.dataset._duh);
+                delete node.dataset._duh;
             } else {
-                !bg || (node.style.filter = 'invert(' + (i/4) + '%)');
+                if (!noFilterChange) {
+                    node.style.filter = 'invert(' + (i/4) + '%)';
+                }
                 node.style.outline = '2px solid rgba(' + color + ' , ' + (
                     1 - ((1 - i / 100) ** 2)
                 ) + ')';
@@ -60,12 +77,12 @@ function injectedMain () {
                 highlight(mutation.target, '0, 255, 0', false, 10);
             } else if (
                 mutation.type === 'attributes' &&
+                    mutation.attributeName !== 'data-_duh' &&
                     mutation.attributeName !== 'style'
             ) {
                 highlight(mutation.target, '255, 255, 0', false, 25);
             } else if (mutation.type === 'childList') {
-                const nodes = mutation.addedNodes;
-                nodes.forEach(node => {
+                mutation.addedNodes.forEach(node => {
                     highlight(node, '255, 0, 0', true, 10);
                 });
             }
