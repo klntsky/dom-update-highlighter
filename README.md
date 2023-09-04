@@ -12,9 +12,9 @@ It can be used by frontend developers to observe inefficiencies in working with 
 
 ## Cheat sheet
 
-- Tree updates are highlighted with red outline and fade-in transition animation
+- Tree updates are highlighted with red outline
 - Text content updates are highlighted with green
-- Attribute updates are highlighted with yellow (but `style` attribute changes are ignored)
+- Attribute updates are highlighted with yellow
 
 ## Implementation
 

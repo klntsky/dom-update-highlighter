@@ -8,7 +8,7 @@ function injectedMain () {
     const highlighted = new Map();
     let counter = 1;
 
-    const highlight = (node, color, changeStyleFilter, stepN) => {
+    const highlight = (node, color, stepN) => {
         if (node === null) return;;
 
         // text node
@@ -26,18 +26,16 @@ function injectedMain () {
             cancelledByNewerHighlight = true;
         };
 
-        let ix;
         if (!node.dataset._duh) {
-            ix = counter++;
-            node.dataset._duh = ix;
+            node.dataset._duh = counter++;
         }
 
         if (highlighted.has(node.dataset._duh)) {
-            const [ oldFilter, oldOutline, canceller ] = highlighted.get(node.dataset._duh);
+            const [ oldOutline, canceller ] = highlighted.get(node.dataset._duh);
             canceller();
-            highlighted.set(node.dataset._duh, [ oldFilter, oldOutline, cancelAnimation ]);
+            highlighted.set(node.dataset._duh, [ oldOutline, cancelAnimation ]);
         } else {
-            highlighted.set(node.dataset._duh, [node.style.filter, node.style.outline, cancelAnimation ]);
+            highlighted.set(node.dataset._duh, [ node.style.outline, cancelAnimation ]);
         }
 
         let i = 100;
@@ -46,19 +44,13 @@ function injectedMain () {
             if (cancelledByNewerHighlight) return;
 
             if (i <= 0) {
-                const [ oldFilter, oldOutline, cancel ] = highlighted.get(node.dataset._duh);
-                if (changeStyleFilter) {
-                    node.style.filter = oldFilter;
-                }
+                const [ oldOutline, cancel ] = highlighted.get(node.dataset._duh);
                 node.style.outline = oldOutline;
                 highlighted.delete(node.dataset._duh);
                 delete node.dataset._duh;
             } else {
-                if (changeStyleFilter) {
-                    node.style.filter = 'invert(' + (i/4) + '%)';
-                }
                 node.style.outline = '2px solid rgba(' + color + ' , ' + (
-                    1 - ((1 - i / 100) ** 2)
+                    i / 100
                 ) + ')';
                 i -= stepN;
                 window.requestAnimationFrame(step);
@@ -71,7 +63,7 @@ function injectedMain () {
     const observer = new MutationObserver((mutationsList, observer) => {
         for(const mutation of mutationsList) {
             if (mutation.type === 'characterData') {
-                highlight(mutation.target, '0, 255, 0', false, 10);
+                highlight(mutation.target, '0, 255, 0', 10);
             } else if (
                 mutation.type === 'attributes' &&
                     mutation.attributeName !== 'data-_duh'
@@ -86,11 +78,11 @@ function injectedMain () {
                     (mutation.oldValue || "").indexOf('outline') === -1 &&
                     (mutation?.target?.style?.cssText || "").indexOf('outline') === -1
                 )) {
-                    highlight(mutation.target, '255, 255, 0', false, 25);
+                    highlight(mutation.target, '255, 255, 0', 20);
                 }
             } else if (mutation.type === 'childList') {
                 mutation.addedNodes.forEach(node => {
-                    highlight(node, '255, 0, 0', true, 10);
+                    highlight(node, '255, 0, 0', 10);
                 });
             }
         }
