@@ -11,5 +11,8 @@
         "clean": "rm -f ./dom-update-highlighter-firefox.xpi ./dom-update-highlighter-chrome.zip manifest.json"
     },
     "author": "klntsky",
-    "license": "ISC"
+    "license": "ISC",
+    "dependencies": {
+        "esbuild": "^0.19.2"
+    }
 }

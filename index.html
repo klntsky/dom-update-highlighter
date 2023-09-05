@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DOM Update Highlighter</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <style>
+      body{margin:40px auto;max-width:650px;line-height:1.6;font-size:18px;color:#444;padding:0 10px}h1,h2,h3{line-height:1.2}
+
+      #logo {
+          width: 30px;
+          height: 30px;
+          vertical-align: baseline;
+          margin-right: 10px;
+      }
+
+      #tree {
+          outline: 2px solid red;
+      }
+      #attribute {
+          outline: 2px solid blue;
+      }
+      #text {
+          outline: 2px solid green;
+      }
+
+      .tree-demo {
+          padding: 5px;
+          border: 1px dotted black;
+          cursor: pointer;
+          display: inline-block;
+          user-select: none;
+      }
+
+      #demo-attr-target {
+          border: 1px dotted black;
+          padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><img id="logo" src="./icon128.png">DOM Update Highlighter</h1>
+
+    <b>DOM Update Highlighter</b> is a WebExtension that makes <a href="https://en.wikipedia.org/wiki/Document_Object_Model" target="_blank">DOM</a> updates more visible as they happen on a webpage.
+
+    It can be used by frontend developers to observe inefficiencies in working with DOM, such as excessive attribute updates or tree rebuilds.<br><br>
+
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/x03lGEKPElk?si=ckbjHi49VR7ynue1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+
+    <h2>Kinds of DOM Updates</h2>
+
+    The following section demonstrates how the web extension reacts on DOM changes.
+
+    Different kinds of updates are outlined in different colors.
+
+    <h3><span id="tree">Tree</span> updates</h3>
+
+    <div id="tree-demo" class="tree-demo">Click me!</div>
+
+    <script>
+      (() => {
+          const demo = document.getElementById('tree-demo');
+          const add = evt => {
+              const newEl = document.createElement('div');
+              newEl.textContent = "Click me!";
+              newEl.className = "tree-demo";
+              newEl.addEventListener('click', add);
+              evt.target.appendChild(newEl)
+              evt.stopPropagation();
+          };
+          demo.addEventListener('click', add);
+      })();
+    </script>
+
+    <h3><span id="attribute">Attribute</span> updates</h3>
+
+    <input type="range" id="demo-attribute">
+
+    <div id="demo-attr-target">move the slider ^</div>
+
+    <script>
+      (() => {
+          const elem = document.getElementById('demo-attribute');
+          const update = () => {
+              document.getElementById('demo-attr-target').style.width = (200 + 2 * elem.value) + 'px';
+          }
+          elem.addEventListener('change', update);
+          update();
+      })();
+    </script>
+
+    <h3><span id="text">Text</span> updates</h3>
+
+    <input id="text-input" placeholder="Type here"><br>
+
+    <span id="text-target">.</span>
+
+    <script>
+      (() => {
+          const textInput = document.getElementById('text-input');
+          const textTarget = document.getElementById('text-target');
+          const update = () => {
+              textTarget.childNodes[0].textContent = textInput.value;
+          };
+          textInput.addEventListener('keyup', update);
+          update();
+      })();
+    </script>
+
+    <script src="./content.js"></script>
+  </body>
+</html>
