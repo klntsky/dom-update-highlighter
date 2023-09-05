@@ -47,6 +47,21 @@
 
     <iframe width="560" height="315" src="https://www.youtube.com/embed/x03lGEKPElk?si=ckbjHi49VR7ynue1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+    <h2>Install</h2>
+
+    <a href="https://chrome.google.com/webstore/detail/dom-update-highlighter/ngbjjfmkdbnkobmnenaclacogdkalimn" target="_blank">
+      <img alt="Chrome Web Store Users" src="https://img.shields.io/chrome-web-store/users/ngbjjfmkdbnkobmnenaclacogdkalimn?logo=Google%20Chrome&logoColor=white&label=Install%20for%20Chrome">
+    </a>
+
+    <a href="https://addons.mozilla.org/en-US/firefox/addon/dom-update-highlighter/" target="_blank">
+      <img alt="Mozilla Add-on Users" src="https://img.shields.io/amo/users/dom-update-highlighter?logo=firefox&label=Install%20for%20Firefox&logoColor=white">
+    </a>
+
+    <a href="javascript:(()=%3E%7Bif(window.__DOM_UPDATE_HIGHLIGHTER)throw%20window.__DOM_UPDATE_HIGHLIGHTER.disconnect(),delete%20window.__DOM_UPDATE_HIGHLIGHTER,%22DOM%20Update%20Highlighter:%20exiting%22;var%20a=new%20Map,n=1,r=(t,u,e)=%3E%7Bif(!t%7C%7C(!t.style%7C%7C!t.dataset)&&(t=t.parentNode,t===null))return;let%20i=!1,d=()=%3E%7Bi=!0%7D;if(t.dataset._duh%7C%7C(t.dataset._duh=n++),a.has(t.dataset._duh))%7Blet%5Bl,h%5D=a.get(t.dataset._duh);h(),a.set(t.dataset._duh,%5Bl,d%5D)%7Delse%20a.set(t.dataset._duh,%5Bt.style.outline,d%5D);let%20s=100,c=()=%3E%7Bif(!i)if(s%3C=0)%7Blet%5Bl,h%5D=a.get(t.dataset._duh);t.style.outline=l,a.delete(t.dataset._duh),delete%20t.dataset._duh%7Delse%20t.style.outline=%222px%20solid%20rgba(%22+u+%22,%22+s/100+%22)%22,s-=e,requestAnimationFrame(c)%7D;c()%7D,_=new%20MutationObserver((t,u)=%3E%7Bfor(let%20e%20of%20t)e.type===%22characterData%22?r(e.target,%220,128,0%22,10):e.type===%22attributes%22&&e.attributeName!==%22data-_duh%22&&(e.attributeName!==%22style%22%7C%7C!e.target.dataset._duh&&(e.oldValue%7C%7C%22%22).indexOf(%22outline%22)===-1&&(e?.target?.style?.cssText%7C%7C%22%22).indexOf(%22outline%22)===-1)?r(e.target,%220,0,255%22,10):e.type===%22childList%22&&e.addedNodes.forEach(i=%3E%7Br(i,%22255,0,0%22,10)%7D)%7D);_.observe(document.body,%7BcharacterData:!0,attributes:!0,childList:!0,subtree:!0,attributeOldValue:!0%7D);window.__DOM_UPDATE_HIGHLIGHTER=_;%7D)();%0A"><img src="https://img.shields.io/badge/Bookmarklet (drag to bookmarks)-333333?logo=Substack&logoColor=white" target="_blank" alt="DOM Update Highlighter"></a>
+
+    <a href="https://klntsky.dev/donate.html"><img src="https://img.shields.io/badge/donate-333333?logo=bitcoin&logoColor=white" alt="Donate" target="_blank"></a>
+
+
 
     <h2>Kinds of DOM Updates</h2>
 
@@ -107,6 +122,10 @@
           update();
       })();
     </script>
+
+    <h2>Donate</h2>
+
+    Follow <a target="_blank" href="https://klntsky.dev/donate.html">this link</a> to donate
 
     <script src="./content.js"></script>
   </body>
