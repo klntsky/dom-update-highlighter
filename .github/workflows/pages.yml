@@ -17,8 +17,9 @@ jobs:
 
       - name: Install and Build
         run: |
-          mkdir public
-          cp content.js index.html favicon.ico icon128.png public/
+          mkdir -p public
+          cp content.js favicon.ico icon128.png public/
+          npm run bookmarklet
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
