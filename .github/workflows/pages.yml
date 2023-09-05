@@ -18,7 +18,7 @@ jobs:
       - name: Install and Build
         run: |
           mkdir public
-          cp index.html favicon.ico icon128.png public/
+          cp content.js index.html favicon.ico icon128.png public/
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
