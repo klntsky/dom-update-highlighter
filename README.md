@@ -10,6 +10,11 @@ It can be used by frontend developers to observe inefficiencies in working with 
 
 [![Watch the video](https://img.youtube.com/vi/x03lGEKPElk/0.jpg)](https://youtu.be/x03lGEKPElk)
 
+## Usage Instructions
+
+See [the website](https://dom-up.date).
+
+
 ## Cheat sheet
 
 - Tree updates - red outline
