@@ -22,7 +22,7 @@ jobs:
         run: |
           npm install
           mkdir -p public
-          cp content.js favicon.ico icon128.png public/
+          cp content.js favicon.ico maquette.js  icon128.png public/
           npm run bookmarklet
 
       - name: Deploy
