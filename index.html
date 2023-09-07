@@ -44,7 +44,25 @@
           right: 0;
       }
 
+      #inefficiencies {
+          display: flex;
+          flex-direction: row;
+      }
+
+      #inefficiencies > * {
+          margin: 20px;
+      }
+
+      table {
+          border: 1px solid black;
+      }
+
+      td {
+          padding: 15px;
+      }
+
     </style>
+    <script src="maquette.js"></script>
   </head>
   <body>
     <a id="github" href="https://github.com/klntsky/dom-update-highlighter/">
@@ -78,6 +96,76 @@
     </a>
 
 
+    <h2>Detecting inefficiencies</h2>
+
+    Here's how the extension makes it obvious where the problems are:
+
+    <div id="inefficiencies">
+      <div id="inefficiencies-1">
+        <b>Efficient update (<a href="https://en.wikipedia.org/wiki/Virtual_DOM" target="_blank">Virtual DOM</a>)</b>
+      </div>
+      <div>
+        <b>Inefficient update (full tree rebuild)</b>
+        <div id="inefficiencies-2">
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const h = maquette.h;
+
+      const projector = maquette.createProjector();
+      const width = 5;
+      let table = new Array(width).fill().map(
+          _ => new Array(width).fill().map(_ => Math.floor(Math.random() * 10)));
+
+      function render() {
+          return h('table',
+              table.map(
+              row => h('tr', row.map(
+                  cell => h('td', [cell+''])))));
+      }
+
+      projector.append(document.getElementById('inefficiencies-1'), render)
+
+      // Initializes the projector
+      const reRenderVDOM = () => {
+          projector.renderNow();
+      };
+
+      const reRenderDOM = () => {
+          const tbl = document.createElement('table');
+
+          table.forEach(row => {
+              const tr = document.createElement('tr');
+
+              row.forEach(cell => {
+                  const td = document.createElement('td');
+                  td.textContent = cell;
+                  tr.appendChild(td);
+              });
+              tbl.appendChild(tr);
+          });
+
+          [].forEach.call(document.getElementById('inefficiencies-2').childNodes, node => node.remove());
+          document.getElementById('inefficiencies-2').appendChild(tbl);
+      }
+
+      const updateTable = () => {
+          table = table.map(row =>
+              row.map(el => Math.random() < 0.2 ? Math.floor(Math.random() * 10) : el)
+          );
+      };
+
+      reRenderDOM();
+
+      setInterval(() => {
+          updateTable();
+          reRenderVDOM();
+          reRenderDOM();
+      }, 1000);
+
+    </script>
 
     <h2>Kinds of DOM Updates</h2>
 
