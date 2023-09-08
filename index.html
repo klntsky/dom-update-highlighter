@@ -239,6 +239,20 @@
       })();
     </script>
 
+    <h2>FAQ</h2>
+
+    <h3>How is it better than Chrome DevTools "Paint Flashing" feature?</h3>
+
+    Paint flashing is rectangular area-based, while this tool is DOM node-based. The difference becomes apparent when there are nested updates, especially of different kinds. Moreover, Paint Flashing isgnores DOM updates that do not lead to re-rendering (typically attribute updates). These updates are sometimes a problem.
+
+    <h3>How is it better than *similar, but framework-specific tool*?</h3>
+
+    It is framework-agnostic, and works with sites created with vanilla js.
+
+    <h3>How is it implemented?</h3>
+
+    It uses <a target="_blank" href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/">MutationObserver</a> API.
+
     <h2>Donate</h2>
 
     Follow <a target="_blank" href="https://klntsky.dev/donate.html">this link</a> to donate
